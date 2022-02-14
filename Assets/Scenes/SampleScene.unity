@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 108872287}
   - component: {fileID: 108872288}
+  - component: {fileID: 108872289}
   m_Layer: 0
   m_Name: Building2
   m_TagString: Building2
@@ -197,7 +198,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b76ecc33a4f0f67438c44887d674448c, type: 3}
-  m_Color: {r: 0.94509804, g: 0.8961011, b: 0.058823526, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -207,6 +208,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &108872289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108872286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f707a0667589a43a9291fecc161927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warehouseCapacity: 10
+  productionAmount: 1
+  productionTime: 0.003
+  buildingNumber: 2
+  waningInfo1: {fileID: 1775147307}
+  warningInfo2: {fileID: 1593236023}
+  resourceDisplay1: {fileID: 675101931}
+  resourceDisplay2: {fileID: 0}
+  resourceDisplay3: {fileID: 336017022}
+  consumableResource1: 1
+  consumableResource2: 0
 --- !u!1 &112120620
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,8 +242,9 @@ GameObject:
   - component: {fileID: 112120621}
   - component: {fileID: 112120622}
   - component: {fileID: 112120623}
+  - component: {fileID: 112120624}
   m_Layer: 0
-  m_Name: Warehouse2
+  m_Name: Warehouse3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -316,6 +341,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &112120624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112120620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afaf92f20c1e4c843be22b5da7974f2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingController: {fileID: 1176033271}
 --- !u!1 &219296989
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,6 +365,7 @@ GameObject:
   - component: {fileID: 219296991}
   - component: {fileID: 219296990}
   - component: {fileID: 219296992}
+  - component: {fileID: 219296993}
   m_Layer: 0
   m_Name: Warehouse1
   m_TagString: OutputWarehouse1
@@ -425,65 +464,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!1 &244960594
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 244960595}
-  - component: {fileID: 244960596}
-  m_Layer: 0
-  m_Name: BuldingControll
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &244960595
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 244960594}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1283285973}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &244960596
+--- !u!114 &219296993
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 244960594}
+  m_GameObject: {fileID: 219296989}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6fe8359d093d241a94eb5a344ffa66, type: 3}
+  m_Script: {fileID: 11500000, guid: afaf92f20c1e4c843be22b5da7974f2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warehouseCapacity: 10
-  productionAmount: 1
-  productionTime: 0.003
-  output1: {fileID: 1963347168}
-  input2: {fileID: 1775147307}
-  output2: {fileID: 1593236023}
-  input3: {fileID: 2048831343}
-  output3: {fileID: 678716143}
-  resource1: {fileID: 2070075065}
-  resource2: {fileID: 336017022}
-  resource3: {fileID: 522756136}
-  inputWarehouse2Resource1: {fileID: 675101931}
-  inputWarehouse3Resource1: {fileID: 699286132}
-  inputWarehouse3Resource2: {fileID: 861553092}
-  check1: 0
-  check2: 0
+  buildingController: {fileID: 1857154473}
 --- !u!1 &336017020
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,7 +489,7 @@ GameObject:
   - component: {fileID: 336017023}
   - component: {fileID: 336017022}
   m_Layer: 5
-  m_Name: Resource2Text
+  m_Name: Output2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -908,7 +901,6 @@ MonoBehaviour:
   speed: 0.5
   timeToTakeResources: 0.004
   backpackSize: 5
-  buildingControll: {fileID: 244960596}
   backpack1: {fileID: 537595627}
   backpack2: {fileID: 1712621502}
 --- !u!212 &426981961
@@ -1109,7 +1101,7 @@ GameObject:
   - component: {fileID: 522756137}
   - component: {fileID: 522756136}
   m_Layer: 5
-  m_Name: Resource3Text
+  m_Name: Output3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1266,6 +1258,7 @@ GameObject:
   - component: {fileID: 543279811}
   - component: {fileID: 543279812}
   - component: {fileID: 543279813}
+  - component: {fileID: 543279814}
   m_Layer: 0
   m_Name: Warehouse2
   m_TagString: OutputWarehouse2
@@ -1364,6 +1357,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &543279814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543279810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afaf92f20c1e4c843be22b5da7974f2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingController: {fileID: 108872289}
 --- !u!1 &561768776
 GameObject:
   m_ObjectHideFlags: 0
@@ -1375,6 +1381,7 @@ GameObject:
   - component: {fileID: 561768777}
   - component: {fileID: 561768778}
   - component: {fileID: 561768779}
+  - component: {fileID: 561768780}
   m_Layer: 0
   m_Name: Warehouse2 (1)
   m_TagString: InputWarehouse2
@@ -1473,6 +1480,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &561768780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561768776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afaf92f20c1e4c843be22b5da7974f2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingController: {fileID: 108872289}
 --- !u!1 &675101929
 GameObject:
   m_ObjectHideFlags: 0
@@ -1485,7 +1505,7 @@ GameObject:
   - component: {fileID: 675101932}
   - component: {fileID: 675101931}
   m_Layer: 5
-  m_Name: Resource1Text (1)
+  m_Name: Input2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1564,7 +1584,7 @@ GameObject:
   - component: {fileID: 678716144}
   - component: {fileID: 678716143}
   m_Layer: 5
-  m_Name: Output3
+  m_Name: Warning3-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1643,7 +1663,7 @@ GameObject:
   - component: {fileID: 699286133}
   - component: {fileID: 699286132}
   m_Layer: 5
-  m_Name: Resource1Text (2)
+  m_Name: Input3-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1721,8 +1741,9 @@ GameObject:
   - component: {fileID: 852011437}
   - component: {fileID: 852011438}
   - component: {fileID: 852011439}
+  - component: {fileID: 852011440}
   m_Layer: 0
-  m_Name: Warehouse2 (1)
+  m_Name: Warehouse3 (1)
   m_TagString: InputWarehouse3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1819,6 +1840,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &852011440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852011436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afaf92f20c1e4c843be22b5da7974f2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingController: {fileID: 1176033271}
 --- !u!1 &854386521
 GameObject:
   m_ObjectHideFlags: 0
@@ -1954,7 +1988,7 @@ GameObject:
   - component: {fileID: 861553093}
   - component: {fileID: 861553092}
   m_Layer: 5
-  m_Name: Resource2Text (1)
+  m_Name: Input3-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2324,7 +2358,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 33ee33c7e3188464b848c1c0b2ec2e48, type: 3}
-  m_Color: {r: 0.18830878, g: 0.8490566, b: 0.1481844, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2350,11 +2384,13 @@ MonoBehaviour:
   productionAmount: 1
   productionTime: 0.003
   buildingNumber: 3
-  output: {fileID: 0}
-  input: {fileID: 0}
-  resource: {fileID: 0}
-  consumableResource1: 0
-  consumableResource2: 0
+  waningInfo1: {fileID: 2048831343}
+  warningInfo2: {fileID: 678716143}
+  resourceDisplay1: {fileID: 699286132}
+  resourceDisplay2: {fileID: 861553092}
+  resourceDisplay3: {fileID: 522756136}
+  consumableResource1: 1
+  consumableResource2: 1
 --- !u!1 &1219077152
 GameObject:
   m_ObjectHideFlags: 0
@@ -2369,7 +2405,7 @@ GameObject:
   - component: {fileID: 1219077153}
   - component: {fileID: 1219077157}
   m_Layer: 5
-  m_Name: LooseScreen
+  m_Name: WarningScreen
   m_TagString: Building3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2504,7 +2540,6 @@ Transform:
   - {fileID: 1176033269}
   - {fileID: 1857154471}
   - {fileID: 108872287}
-  - {fileID: 244960595}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2769,7 +2804,7 @@ GameObject:
   - component: {fileID: 1593236024}
   - component: {fileID: 1593236023}
   m_Layer: 5
-  m_Name: Output2
+  m_Name: Warning2-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3116,7 +3151,7 @@ GameObject:
   - component: {fileID: 1775147308}
   - component: {fileID: 1775147307}
   m_Layer: 5
-  m_Name: Input2
+  m_Name: Warning2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3193,6 +3228,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1857154471}
   - component: {fileID: 1857154472}
+  - component: {fileID: 1857154473}
   m_Layer: 0
   m_Name: Building1
   m_TagString: Untagged
@@ -3256,7 +3292,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6a6264132704f5e468b1904fac3a8266, type: 3}
-  m_Color: {r: 0.94509804, g: 0.84362113, b: 0.058823526, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3266,6 +3302,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1857154473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857154470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f707a0667589a43a9291fecc161927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warehouseCapacity: 10
+  productionAmount: 1
+  productionTime: 0.003
+  buildingNumber: 1
+  waningInfo1: {fileID: 0}
+  warningInfo2: {fileID: 1963347168}
+  resourceDisplay1: {fileID: 0}
+  resourceDisplay2: {fileID: 0}
+  resourceDisplay3: {fileID: 2070075065}
+  consumableResource1: 0
+  consumableResource2: 0
 --- !u!1 &1963347166
 GameObject:
   m_ObjectHideFlags: 0
@@ -3278,7 +3337,7 @@ GameObject:
   - component: {fileID: 1963347169}
   - component: {fileID: 1963347168}
   m_Layer: 5
-  m_Name: Output1
+  m_Name: Warning1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3357,7 +3416,7 @@ GameObject:
   - component: {fileID: 2048831344}
   - component: {fileID: 2048831343}
   m_Layer: 5
-  m_Name: Input3
+  m_Name: Warning3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3436,7 +3495,7 @@ GameObject:
   - component: {fileID: 2070075066}
   - component: {fileID: 2070075065}
   m_Layer: 5
-  m_Name: Resource1Text
+  m_Name: Output1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
