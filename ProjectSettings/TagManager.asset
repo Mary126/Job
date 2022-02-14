@@ -11,6 +11,10 @@ TagManager:
   - Building1
   - Building2
   - Building3
+  - OutputWarehouse1
+  - OutputWarehouse2
+  - InputWarehouse2
+  - InputWarehouse3
   layers:
   - Default
   - TransparentFX

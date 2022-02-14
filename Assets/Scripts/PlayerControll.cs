@@ -9,7 +9,6 @@ public class PlayerControll : MonoBehaviour
     public float timeToTakeResources;
     public int backpackSize;
     public Dictionary<string, float> playerResources = new Dictionary<string, float>();
-    public BuildingControll buildingControll;
     Collider2D isColliding;
     public Text backpack1;
     public Text backpack2;
@@ -35,45 +34,32 @@ public class PlayerControll : MonoBehaviour
     {
         transform.position = new Vector3(transform.position.x + speed, transform.position.y);
     }
-    void GetResources(string type, string resource)
+    void GetResources(string resource, BuildingController buildingController)
     {
         float amnt = playerResources["resource1"] + playerResources["resource2"];
-        if (amnt <= backpackSize && type == "OutputWarehouse1" && buildingControll.warehouseResources1["produced"] >= 1)
+        if (amnt <= backpackSize && buildingController.warehouseResources["produced"] >= 1)
         {
             playerResources[resource] = Mathf.Lerp(playerResources[resource], playerResources[resource] + 1, timeToTakeResources);
-            buildingControll.warehouseResources1["produced"] =
-                        Mathf.Lerp(buildingControll.warehouseResources1["produced"], buildingControll.warehouseResources1["produced"] - 1, timeToTakeResources);
-        }
-        else if (amnt <= backpackSize && type == "OutputWarehouse2" && buildingControll.warehouseResources2["produced"] >= 1)
-        {
-            playerResources[resource] = Mathf.Lerp(playerResources[resource], playerResources[resource] + 1, timeToTakeResources);
-            buildingControll.warehouseResources2["produced"] =
-                        Mathf.Lerp(buildingControll.warehouseResources2["produced"], buildingControll.warehouseResources2["produced"] - 1, timeToTakeResources);
+            buildingController.warehouseResources["produced"] =
+                        Mathf.Lerp(buildingController.warehouseResources["produced"], buildingController.warehouseResources["produced"] - 1, timeToTakeResources);
+            buildingController.resourceDisplay3.text = Math.Abs(buildingController.warehouseResources["produced"]).ToString();
         }
     }
-    void PutResources(string type)
+    void PutResources(string type, BuildingController buildingController)
     {
-        if (type == "InputWarehouse2")
+        if (playerResources["resource1"] > 0 && buildingController.warehouseResources["consumable1"] < buildingController.warehouseCapacity)
         {
-            if (playerResources["resource1"] >= 0 && buildingControll.warehouseResources2["consumable1"] <= buildingControll.warehouseCapacity)
-            {
-                buildingControll.warehouseResources2["consumable1"] = 
-                    Mathf.Lerp(buildingControll.warehouseResources2["consumable1"], buildingControll.warehouseResources2["consumable1"] + 1, timeToTakeResources);
-                playerResources["resource1"] = Mathf.Lerp(playerResources["resource1"], playerResources["resource1"] - 1, timeToTakeResources);
-            }
+            buildingController.warehouseResources["consumable1"] =
+                Mathf.Lerp(buildingController.warehouseResources["consumable1"], buildingController.warehouseResources["consumable1"] + 1, timeToTakeResources);
+            playerResources["resource1"] = Mathf.Lerp(playerResources["resource1"], playerResources["resource1"] - 1, timeToTakeResources);
+            buildingController.resourceDisplay1.text = Math.Abs(buildingController.warehouseResources["produced"]).ToString();
         }
-        else if (type == "InputWarehouse3")
+        if (playerResources["resource2"] > 0 && type == "InputWarehouse3" && buildingController.warehouseResources["consumable2"] < buildingController.warehouseCapacity)
         {
-            if (playerResources["resource1"] >= 0 && buildingControll.warehouseResources3["consumable1"] <= buildingControll.warehouseCapacity &&
-                playerResources["resource2"] >= 0 && buildingControll.warehouseResources3["consumable2"] <= buildingControll.warehouseCapacity)
-            {
-                buildingControll.warehouseResources3["consumable1"] =
-                    Mathf.Lerp(buildingControll.warehouseResources3["consumable1"], buildingControll.warehouseResources3["consumable1"] + 1, timeToTakeResources);
-                buildingControll.warehouseResources3["consumable2"] =
-                    Mathf.Lerp(buildingControll.warehouseResources3["consumable2"], buildingControll.warehouseResources3["consumable2"] + 1, timeToTakeResources);
-                playerResources["resource1"] = Mathf.Lerp(playerResources["resource1"], playerResources["resource1"] - 1, timeToTakeResources);
-                playerResources["resource2"] = Mathf.Lerp(playerResources["resource2"], playerResources["resource2"] - 1, timeToTakeResources);
-            }
+            buildingController.warehouseResources["consumable2"] =
+                Mathf.Lerp(buildingController.warehouseResources["consumable2"], buildingController.warehouseResources["consumable2"] + 1, timeToTakeResources);
+            playerResources["resource2"] = Mathf.Lerp(playerResources["resource2"], playerResources["resource2"] - 1, timeToTakeResources);
+            buildingController.resourceDisplay2.text = Math.Abs(buildingController.warehouseResources["produced"]).ToString();
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -86,29 +72,29 @@ public class PlayerControll : MonoBehaviour
         {
             float dif = playerResources["resource1"] - (float)Math.Floor(playerResources["resource1"]);
             playerResources["resource1"] = (float)Math.Floor(playerResources["resource1"]);
-            buildingControll.warehouseResources1["produced"] += dif;
+            collision.GetComponent<WarehouseInstances>().buildingController.warehouseResources["produced"] += dif;
         }
         else if (collision.tag == "OutputWarehouse2")
         {
             float dif = playerResources["resource2"] - (float)Math.Floor(playerResources["resource2"]);
             playerResources["resource2"] = (float)Math.Floor(playerResources["resource2"]);
-            buildingControll.warehouseResources2["produced"] += dif;
+            collision.GetComponent<WarehouseInstances>().buildingController.warehouseResources["produced"] += dif;
         }
         else if (collision.tag == "InputWarehouse2")
         {
             float dif = (float)Math.Ceiling(playerResources["resource1"]) - playerResources["resource1"];
             playerResources["resource1"] = (float)Math.Ceiling(playerResources["resource1"]);
-            buildingControll.warehouseResources2["consumable1"] -= dif;
+            collision.GetComponent<WarehouseInstances>().buildingController.warehouseResources["consumable1"] -= dif;
 
         }
         else if (collision.tag == "InputWarehouse3")
         {
             float dif1 = (float)Math.Ceiling(playerResources["resource1"]) - playerResources["resource1"];
             playerResources["resource1"] = (float)Math.Ceiling(playerResources["resource1"]);
-            buildingControll.warehouseResources3["consumable1"] -= dif1;
+            collision.GetComponent<WarehouseInstances>().buildingController.warehouseResources["consumable1"] -= dif1;
             float dif2 = (float)Math.Ceiling(playerResources["resource2"]) - playerResources["resource2"];
             playerResources["resource2"] = (float)Math.Ceiling(playerResources["resource2"]);
-            buildingControll.warehouseResources3["consumable2"] -= dif2;
+            collision.GetComponent<WarehouseInstances>().buildingController.warehouseResources["consumable2"] -= dif2;
         }
         isColliding = null;
     }
@@ -118,10 +104,10 @@ public class PlayerControll : MonoBehaviour
         {
             switch (isColliding.tag)
             {
-                case "OutputWarehouse1": GetResources(isColliding.tag, "resource1"); break;
-                case "OutputWarehouse2": GetResources(isColliding.tag, "resource2"); break;
-                case "InputWarehouse2": PutResources(isColliding.tag); break;
-                case "InputWarehouse3": PutResources(isColliding.tag); break;
+                case "OutputWarehouse1": GetResources("resource1", isColliding.GetComponent<WarehouseInstances>().buildingController); break;
+                case "OutputWarehouse2": GetResources("resource2", isColliding.GetComponent<WarehouseInstances>().buildingController); break;
+                case "InputWarehouse2": PutResources(isColliding.tag, isColliding.GetComponent<WarehouseInstances>().buildingController); break;
+                case "InputWarehouse3": PutResources(isColliding.tag, isColliding.GetComponent<WarehouseInstances>().buildingController); break;
                 default: break;
             }
         }
