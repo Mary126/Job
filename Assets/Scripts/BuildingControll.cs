@@ -5,36 +5,37 @@ using UnityEngine.UI;
 
 public class BuildingControll : MonoBehaviour
 {
-    public int warehouseCapacity;
-    public Dictionary<string, int> warehouseResources1 = new Dictionary<string, int>();
-    public Dictionary<string, int> warehouseResources2 = new Dictionary<string, int>();
-    public Dictionary<string, int> warehouseResources3 = new Dictionary<string, int>();
+    public float warehouseCapacity;
+    public Dictionary<string, float> warehouseResources1 = new Dictionary<string, float>();
+    public Dictionary<string, float> warehouseResources2 = new Dictionary<string, float>();
+    public Dictionary<string, float> warehouseResources3 = new Dictionary<string, float>();
     public int productionAmount;
     public float productionTime;
     public GameObject looseScreen;
     public Text looseInfo;
+    public Text resource1;
+    public Text resource2;
+    public Text resource3;
+    public Text inputWarehouse2Resource1;
+    public Text inputWarehouse3Resource1;
+    public Text inputWarehouse3Resource2;
 
     // Start is called before the first frame update
     void Start()
     {
         warehouseResources1.Add("produced", 0);
-        warehouseResources2.Add("consumable1", 20);
+        warehouseResources2.Add("consumable1", 10);
         warehouseResources2.Add("produced", 0);
-        warehouseResources3.Add("consumable1", 20);
-        warehouseResources3.Add("consumable2", 20);
+        warehouseResources3.Add("consumable1", 10);
+        warehouseResources3.Add("consumable2", 10);
         warehouseResources3.Add("produced", 0);
-        InvokeRepeating("Building1Production", productionTime, 0.3f);
-        InvokeRepeating("Building2Production", productionTime, 0.3f);
-        InvokeRepeating("Building3Production", productionTime, 0.3f);
     }
-
-    public void Building1Production()
+    void Building1Production()
     {
-        if (warehouseResources1["produced"] <= warehouseCapacity)
+        if (warehouseResources1["produced"] < warehouseCapacity)
         {
-            warehouseResources1["produced"] += productionAmount;
-
-            Debug.Log("Building 1 has " + warehouseResources2["produced"] + " produced");
+            warehouseResources1["produced"] = Mathf.Lerp(warehouseResources1["produced"], warehouseResources1["produced"] + productionAmount, productionTime);
+            resource1.text = warehouseResources1["produced"].ToString();
         }
         else
         {
@@ -43,14 +44,14 @@ public class BuildingControll : MonoBehaviour
             Time.timeScale = 0;
         }
     }
-    public void Building2Production()
+    void Building2Production()
     {
         if (warehouseResources2["produced"] <= warehouseCapacity && warehouseResources2["consumable1"] >= productionAmount)
         {
-            warehouseResources2["produced"] += productionAmount;
-            warehouseResources2["consumable1"] -= productionAmount;
-            Debug.Log("Building 2 has " + warehouseResources2["produced"] + " produced");
-            Debug.Log("Building 2 has " + warehouseResources2["consumable1"] + " left");
+            warehouseResources2["produced"] = Mathf.Lerp(warehouseResources2["produced"], warehouseResources2["produced"] + productionAmount, productionTime);
+            warehouseResources2["consumable1"] = Mathf.Lerp(warehouseResources2["consumable1"], warehouseResources2["consumable1"] - productionAmount, productionTime);
+            resource2.text = warehouseResources1["produced"].ToString();
+            inputWarehouse2Resource1.text = warehouseResources2["consumable1"].ToString();
 
         }
         else if (warehouseResources2["consumable1"] < productionAmount)
@@ -66,16 +67,17 @@ public class BuildingControll : MonoBehaviour
             Time.timeScale = 0;
         }
     }
-    public void Building3Production()
+    void Building3Production()
     {
         if (warehouseResources3["produced"] <= warehouseCapacity && warehouseResources3["consumable1"] >= productionAmount && warehouseResources3["consumable2"] >= productionAmount)
         {
-            warehouseResources3["produced"] += productionAmount;
-            warehouseResources3["consumable1"] -= productionAmount;
-            warehouseResources3["consumable2"] -= productionAmount;
-            Debug.Log("Building 3 has " + warehouseResources3["produced"] + " produced");
-            Debug.Log("Building 3 has " + warehouseResources3["consumable1"] + " left");
-            Debug.Log("Building 3 has " + warehouseResources3["consumable2"] + " left");
+            warehouseResources3["produced"] = Mathf.Lerp(warehouseResources3["produced"], warehouseResources3["produced"] + productionAmount, productionTime);
+            warehouseResources3["consumable1"] = Mathf.Lerp(warehouseResources3["consumable1"], warehouseResources3["consumable1"] - productionAmount, productionTime);
+            warehouseResources3["consumable2"] = Mathf.Lerp(warehouseResources3["consumable2"], warehouseResources3["consumable2"] - productionAmount, productionTime); ;
+            resource3.text = warehouseResources3["produced"].ToString();
+            inputWarehouse3Resource1.text = warehouseResources3["consumable1"].ToString();
+            inputWarehouse3Resource2.text = warehouseResources3["consumable2"].ToString();
+
         }
         else if (warehouseResources3["consumable1"] < productionAmount || warehouseResources3["consumable2"] < productionAmount)
         {
@@ -89,5 +91,11 @@ public class BuildingControll : MonoBehaviour
             looseInfo.text = "«акончилось место на складе 3го производства";
             Time.timeScale = 0;
         }
+    }
+    private void Update()
+    {
+        Building1Production();
+        Building2Production();
+        Building3Production();
     }
 }
