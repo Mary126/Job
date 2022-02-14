@@ -40,10 +40,13 @@ public class PlayerControll : MonoBehaviour
         if (amnt <= backpackSize && buildingController.warehouseResources["produced"] >= 1)
         {
             playerResources[resource] = Mathf.Lerp(playerResources[resource], playerResources[resource] + 1, timeToTakeResources);
+            if (resource == "resource1") backpack1.text = Math.Abs(playerResources["resource1"]).ToString();
+            else if (resource == "resource2") backpack2.text = Math.Abs(playerResources["resource2"]).ToString();
             buildingController.warehouseResources["produced"] =
                         Mathf.Lerp(buildingController.warehouseResources["produced"], buildingController.warehouseResources["produced"] - 1, timeToTakeResources);
             buildingController.resourceDisplay3.text = Math.Abs(buildingController.warehouseResources["produced"]).ToString();
         }
+        
     }
     void PutResources(string type, BuildingController buildingController)
     {
@@ -52,14 +55,14 @@ public class PlayerControll : MonoBehaviour
             buildingController.warehouseResources["consumable1"] =
                 Mathf.Lerp(buildingController.warehouseResources["consumable1"], buildingController.warehouseResources["consumable1"] + 1, timeToTakeResources);
             playerResources["resource1"] = Mathf.Lerp(playerResources["resource1"], playerResources["resource1"] - 1, timeToTakeResources);
-            buildingController.resourceDisplay1.text = Math.Abs(buildingController.warehouseResources["produced"]).ToString();
+            buildingController.resourceDisplay1.text = Math.Abs(buildingController.warehouseResources["consumable1"]).ToString();
         }
-        if (playerResources["resource2"] > 0 && type == "InputWarehouse3" && buildingController.warehouseResources["consumable2"] < buildingController.warehouseCapacity)
+        if (type == "InputWarehouse3" && playerResources["resource2"] > 0 && buildingController.warehouseResources["consumable2"] < buildingController.warehouseCapacity)
         {
             buildingController.warehouseResources["consumable2"] =
                 Mathf.Lerp(buildingController.warehouseResources["consumable2"], buildingController.warehouseResources["consumable2"] + 1, timeToTakeResources);
             playerResources["resource2"] = Mathf.Lerp(playerResources["resource2"], playerResources["resource2"] - 1, timeToTakeResources);
-            buildingController.resourceDisplay2.text = Math.Abs(buildingController.warehouseResources["produced"]).ToString();
+            buildingController.resourceDisplay2.text = Math.Abs(buildingController.warehouseResources["consumable2"]).ToString();
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -111,7 +114,7 @@ public class PlayerControll : MonoBehaviour
                 default: break;
             }
         }
-        backpack1.text = playerResources["resource1"].ToString();
-        backpack2.text = playerResources["resource2"].ToString();
+        backpack1.text = Math.Abs(playerResources["resource1"]).ToString();
+        backpack2.text = Math.Abs(playerResources["resource2"]).ToString();
     }
 }

@@ -33,15 +33,15 @@ public class BuildingController : MonoBehaviour
             if (consumableResource1 == true && warehouseResources["consumable1"] > 0 && consumableResource2 == false)
             {
                 warehouseResources["consumable1"] = Mathf.Lerp(warehouseResources["consumable1"], warehouseResources["consumable1"] - productionAmount, productionTime);
-                resourceDisplay1.text = warehouseResources["consumable1"].ToString();
+                resourceDisplay1.text = Math.Abs(warehouseResources["consumable1"]).ToString();
             }
             //building 3
             else if (consumableResource2 == true && warehouseResources["consumable2"] > 0 && warehouseResources["consumable1"] > 0)
             {
                 warehouseResources["consumable1"] = Mathf.Lerp(warehouseResources["consumable1"], warehouseResources["consumable1"] - productionAmount, productionTime);
                 warehouseResources["consumable2"] = Mathf.Lerp(warehouseResources["consumable2"], warehouseResources["consumable2"] - productionAmount, productionTime);
-                resourceDisplay1.text = warehouseResources["consumable1"].ToString();
-                resourceDisplay2.text = warehouseResources["consumable2"].ToString();
+                resourceDisplay1.text = Math.Abs(warehouseResources["consumable1"]).ToString();
+                resourceDisplay2.text = Math.Abs(warehouseResources["consumable2"]).ToString();
             }
             else if (consumableResource1 == true || consumableResource2 == true)
             {
