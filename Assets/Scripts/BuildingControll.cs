@@ -11,15 +11,19 @@ public class BuildingControll : MonoBehaviour
     public Dictionary<string, float> warehouseResources3 = new Dictionary<string, float>();
     public int productionAmount;
     public float productionTime;
-    public GameObject looseScreen;
-    public Text looseInfo;
+    public Text output1;
+    public Text input2;
+    public Text output2;
+    public Text input3;
+    public Text output3;
     public Text resource1;
     public Text resource2;
     public Text resource3;
     public Text inputWarehouse2Resource1;
     public Text inputWarehouse3Resource1;
     public Text inputWarehouse3Resource2;
-
+    public bool check1 = false;
+    public bool check2 = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,14 +43,12 @@ public class BuildingControll : MonoBehaviour
         }
         else
         {
-            looseScreen.SetActive(true);
-            looseInfo.text = "«акончилось место на складе 1го производства";
-            Time.timeScale = 0;
+            output1.text = "«акончилось место на складе 1го производства";
         }
     }
     void Building2Production()
     {
-        if (warehouseResources2["produced"] <= warehouseCapacity && warehouseResources2["consumable1"] >= productionAmount)
+        if (warehouseResources2["produced"] < warehouseCapacity && warehouseResources2["consumable1"] >= productionAmount)
         {
             warehouseResources2["produced"] = Mathf.Lerp(warehouseResources2["produced"], warehouseResources2["produced"] + productionAmount, productionTime);
             warehouseResources2["consumable1"] = Mathf.Lerp(warehouseResources2["consumable1"], warehouseResources2["consumable1"] - productionAmount, productionTime);
@@ -56,20 +58,16 @@ public class BuildingControll : MonoBehaviour
         }
         else if (warehouseResources2["consumable1"] < productionAmount)
         {
-            looseScreen.SetActive(true);
-            looseInfo.text = "Ќет ресурсов дл€ 2го производства";
-            Time.timeScale = 0;
+            input2.text = "Ќет ресурсов дл€ 2го производства";
         }
         else if (warehouseResources2["produced"] > warehouseCapacity)
         {
-            looseScreen.SetActive(true);
-            looseInfo.text = "«акончилось место на складе 2го производства";
-            Time.timeScale = 0;
+            output2.text = "«акончилось место на складе 2го производства";
         }
     }
     void Building3Production()
     {
-        if (warehouseResources3["produced"] <= warehouseCapacity && warehouseResources3["consumable1"] >= productionAmount && warehouseResources3["consumable2"] >= productionAmount)
+        if (warehouseResources3["produced"] < warehouseCapacity && warehouseResources3["consumable1"] >= productionAmount && warehouseResources3["consumable2"] >= productionAmount)
         {
             warehouseResources3["produced"] = Mathf.Lerp(warehouseResources3["produced"], warehouseResources3["produced"] + productionAmount, productionTime);
             warehouseResources3["consumable1"] = Mathf.Lerp(warehouseResources3["consumable1"], warehouseResources3["consumable1"] - productionAmount, productionTime);
@@ -81,21 +79,17 @@ public class BuildingControll : MonoBehaviour
         }
         else if (warehouseResources3["consumable1"] < productionAmount || warehouseResources3["consumable2"] < productionAmount)
         {
-            looseScreen.SetActive(true);
-            looseInfo.text = "Ќет ресурсов дл€ 3го производства";
-            Time.timeScale = 0;
+            input3.text = "Ќет ресурсов дл€ 3го производства";
         }
         else if (warehouseResources3["produced"] > warehouseCapacity)
         {
-            looseScreen.SetActive(true);
-            looseInfo.text = "«акончилось место на складе 3го производства";
-            Time.timeScale = 0;
+            output3.text = "«акончилось место на складе 3го производства";
         }
     }
     private void Update()
     {
         Building1Production();
         Building2Production();
-        Building3Production();
+        //Building3Production();
     }
 }
