@@ -90,6 +90,6 @@ public class BuildingControll : MonoBehaviour
     {
         Building1Production();
         Building2Production();
-        //Building3Production();
+        Building3Production();
     }
 }

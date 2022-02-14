@@ -44,6 +44,12 @@ public class PlayerControll : MonoBehaviour
             buildingControll.warehouseResources1["produced"] =
                         Mathf.Lerp(buildingControll.warehouseResources1["produced"], buildingControll.warehouseResources1["produced"] - 1, timeToTakeResources);
         }
+        else if (amnt <= backpackSize && type == "OutputWarehouse2" && buildingControll.warehouseResources2["produced"] >= 1)
+        {
+            playerResources[resource] = Mathf.Lerp(playerResources[resource], playerResources[resource] + 1, timeToTakeResources);
+            buildingControll.warehouseResources2["produced"] =
+                        Mathf.Lerp(buildingControll.warehouseResources2["produced"], buildingControll.warehouseResources2["produced"] - 1, timeToTakeResources);
+        }
     }
     void PutResources(string type)
     {
@@ -54,6 +60,19 @@ public class PlayerControll : MonoBehaviour
                 buildingControll.warehouseResources2["consumable1"] = 
                     Mathf.Lerp(buildingControll.warehouseResources2["consumable1"], buildingControll.warehouseResources2["consumable1"] + 1, timeToTakeResources);
                 playerResources["resource1"] = Mathf.Lerp(playerResources["resource1"], playerResources["resource1"] - 1, timeToTakeResources);
+            }
+        }
+        else if (type == "InputWarehouse3")
+        {
+            if (playerResources["resource1"] >= 0 && buildingControll.warehouseResources3["consumable1"] <= buildingControll.warehouseCapacity &&
+                playerResources["resource2"] >= 0 && buildingControll.warehouseResources3["consumable2"] <= buildingControll.warehouseCapacity)
+            {
+                buildingControll.warehouseResources3["consumable1"] =
+                    Mathf.Lerp(buildingControll.warehouseResources3["consumable1"], buildingControll.warehouseResources3["consumable1"] + 1, timeToTakeResources);
+                buildingControll.warehouseResources3["consumable2"] =
+                    Mathf.Lerp(buildingControll.warehouseResources3["consumable2"], buildingControll.warehouseResources3["consumable2"] + 1, timeToTakeResources);
+                playerResources["resource1"] = Mathf.Lerp(playerResources["resource1"], playerResources["resource1"] - 1, timeToTakeResources);
+                playerResources["resource2"] = Mathf.Lerp(playerResources["resource2"], playerResources["resource2"] - 1, timeToTakeResources);
             }
         }
     }
@@ -79,10 +98,18 @@ public class PlayerControll : MonoBehaviour
         {
             float dif = (float)Math.Ceiling(playerResources["resource1"]) - playerResources["resource1"];
             playerResources["resource1"] = (float)Math.Ceiling(playerResources["resource1"]);
-            buildingControll.warehouseResources2["produced"] -= dif;
+            buildingControll.warehouseResources2["consumable1"] -= dif;
 
         }
-        //playerResources["resource2"] = Mathf.Round(playerResources["resource2"]);
+        else if (collision.tag == "InputWarehouse3")
+        {
+            float dif1 = (float)Math.Ceiling(playerResources["resource1"]) - playerResources["resource1"];
+            playerResources["resource1"] = (float)Math.Ceiling(playerResources["resource1"]);
+            buildingControll.warehouseResources3["consumable1"] -= dif1;
+            float dif2 = (float)Math.Ceiling(playerResources["resource2"]) - playerResources["resource2"];
+            playerResources["resource2"] = (float)Math.Ceiling(playerResources["resource2"]);
+            buildingControll.warehouseResources3["consumable2"] -= dif2;
+        }
         isColliding = null;
     }
     private void Update()
